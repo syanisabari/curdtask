@@ -1,4 +1,5 @@
 const user=require("./schema")
+const users=require("./userSchema")
 const add=async(req,res)=>{
         try {
        const New=new user({
@@ -89,10 +90,60 @@ const Delete=async(req,res)=>{
     }
 }
 
+const register = async (req, res) => {
+    try {
+        const New = new users({
+            email: req.body.email,
+            password: req.body.password
+        });
+
+        const saved = await New.save();
+
+        res.json({
+            message: "user registered",
+            data: saved
+        });
+
+    } catch (error) {
+        res.json({
+            message: "error in register",
+            Error: error
+        });
+    }
+};
+
+const login = async (req, res) => {
+    try {
+        const data = await users.findOne({
+            email: req.body.email,
+            password: req.body.password
+        });
+
+        if (data) {
+            res.json({
+                message: "login success",
+                data: data
+            });
+        } else {
+            res.json({
+                message: "invalid user"
+            });
+        }
+
+    } catch (error) {
+        res.json({
+            message: "error in login",
+            Error: error
+        });
+    }
+};
+
 module.exports={
     add,
     ViewAll,
     View,
     Edit,
-    Delete
+    Delete,
+    register,
+    login
 }

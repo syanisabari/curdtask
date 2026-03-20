@@ -7,5 +7,7 @@ routes.get("/ViewAll",controller.ViewAll)
 routes.get("/View/:id",controller.View)
 routes.put("/Edit/:id",controller.Edit)
 routes.delete("/delete/:id",controller.Delete)
+routes.post("/register", controller.register)
+routes.post("/login", controller.login)
 
 module.exports=routes
