@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 const Signup=()=>{
-    // const[email,setEmail]=useState("syani@gmail.com")
-    // const[password,setPassword]=useState("1234")
+    const[email1,setEmail1]=useState("syani@gmail.com")
+    const[password1,setPassword1]=useState("1234")
     const[email,setEmail]=useState("")
     const[password,setPassword]=useState("")
     const navigate=useNavigate()
