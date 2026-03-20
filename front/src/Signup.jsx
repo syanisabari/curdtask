@@ -15,6 +15,7 @@ const Signup=()=>{
     function click(){
              if(email==email1 && password==password1){
             navigate("/Signin");
+                 alert("logined successfully")
         }
         else{
             alert("invalid");
