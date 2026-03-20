@@ -15,6 +15,7 @@ const Signin=()=>{
     function check(){
         if(email==email1 && password==password1){
             navigate('/Update')
+            alert("signed up successfully")
         }
         else{
             alert("invalid")
