@@ -92,6 +92,13 @@ const Delete = async (req, res) => {
 
 const register = async (req, res) => {
     try {
+        let data = await users.findOne({ email: req.body.email })
+        
+        if (data) {
+            return res.json({
+                message: 'User already exist'
+            })
+        }
         const New = new users({
             email: req.body.email,
             password: req.body.password
@@ -115,14 +122,12 @@ const register = async (req, res) => {
 const login = async (req, res) => {
 
     try {
-        
+
         const data = await users.findOne({
             email: req.body.email
         });
-        console.log(data);
+        // console.log(data);
         // console.log(req);
-
-
         if (data.email == req.body.email && data.password == req.body.password) {
             res.json({
                 message: "login success",
