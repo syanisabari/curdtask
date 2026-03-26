@@ -19,7 +19,7 @@ const Signup=()=>{
          email: email,
           password: password,
       });
-           if(email1==email && password1==password){
+           if(email==email1 && password==password1){
                  navigate("/Signin");
                  alert("logined successfully")
            }
