@@ -19,12 +19,16 @@ const Signup=()=>{
          email: email,
           password: password,
       });
-            navigate("/Signin");
+           if(email1==email && password1==password){
+                 navigate("/Signin");
                  alert("logined successfully")
+           }
+           else{
+                  alert("invalid");
+           }
         }
         catch(error){
             console.log(error);  
-            alert("invalid");
         }  
     }
     return(
