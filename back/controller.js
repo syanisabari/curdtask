@@ -1,22 +1,22 @@
-const user=require("./schema")
-const users=require("./userSchema")
-const add=async(req,res)=>{
-        try {
-       const New=new user({
-        taskname:req.body.taskname,
-        taskpriority:req.body.taskpriority,
-        taskdeadline:req.body.taskdeadline
-       })
-       const saved=await New.save() 
-       res.json({
-        message:"user added",
-        data:saved
-       })
+const user = require("./schema")
+const users = require("./userSchema")
+const add = async (req, res) => {
+    try {
+        const New = new user({
+            taskname: req.body.taskname,
+            taskpriority: req.body.taskpriority,
+            taskdeadline: req.body.taskdeadline
+        })
+        const saved = await New.save()
+        res.json({
+            message: "user added",
+            data: saved
+        })
     } catch (error) {
         console.log(error);
         res.json({
-            message:"error in adding",
-            Error:error
+            message: "error in adding",
+            Error: error
         })
     }
 }
@@ -43,7 +43,7 @@ const View = async (req, res) => {
 
         res.json({
             message: "User details fetched ",
-            data:Details
+            data: Details
         })
     } catch (error) {
         res.json({
@@ -53,40 +53,40 @@ const View = async (req, res) => {
     }
 }
 
-const Edit=async(req,res)=>{
+const Edit = async (req, res) => {
     try {
-        const {id}=req.params
-        const update={
-              taskname:req.body.taskname,
-            taskpriority:req.body.taskpriority,
-            taskdeadline:req.body.taskdeadline
+        const { id } = req.params
+        const update = {
+            taskname: req.body.taskname,
+            taskpriority: req.body.taskpriority,
+            taskdeadline: req.body.taskdeadline
         }
-        const saved=await user.findByIdAndUpdate(id,update,{new:true})
+        const saved = await user.findByIdAndUpdate(id, update, { new: true })
         res.json({
-            message:"user updated successfully",
-            data:saved
+            message: "user updated successfully",
+            data: saved
         })
     } catch (error) {
-       res.json({
-        message:"error in updating",
-        Error:error
-       })  
+        res.json({
+            message: "error in updating",
+            Error: error
+        })
     }
 }
 
-const Delete=async(req,res)=>{
+const Delete = async (req, res) => {
     try {
-        const {id}=req.params
-        const deleteduser=await user.findByIdAndDelete(id)
+        const { id } = req.params
+        const deleteduser = await user.findByIdAndDelete(id)
         res.json({
-            message:"user deleted successfully",
-            data:deleteduser
+            message: "user deleted successfully",
+            data: deleteduser
         })
     } catch (error) {
-       res.json({
-        message:"error in deleting",
-        Error:error
-       }) 
+        res.json({
+            message: "error in deleting",
+            Error: error
+        })
     }
 }
 
@@ -113,18 +113,23 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-    try {
-        const data = await users.findOne({
-            email: req.body.email,
-            password: req.body.password
-        });
 
-        if (data) {
+    try {
+        
+        const data = await users.findOne({
+            email: req.body.email
+        });
+        console.log(data);
+        // console.log(req);
+
+
+        if (data.email == req.body.email && data.password == req.body.password) {
             res.json({
                 message: "login success",
                 data: data
             });
-        } else {
+        }
+        else {
             res.json({
                 message: "invalid user"
             });
@@ -133,12 +138,13 @@ const login = async (req, res) => {
     } catch (error) {
         res.json({
             message: "error in login",
-            Error: error
+            Error: error.message,
+            dd: error.stack
         });
     }
 };
 
-module.exports={
+module.exports = {
     add,
     ViewAll,
     View,
